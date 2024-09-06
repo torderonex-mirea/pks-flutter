@@ -1,16 +1,24 @@
-# myapp
+# 1 Практика ПКС
 
-A new Flutter project.
+## Установка
 
-## Getting Started
+- Скачал Flutter SDK с офф.
+- Разархивировал скачанный архив по указанному в гайде пути C:\Users\{username}
+- Добавил flutter в PATH
+- Установил Android Studio
+- Создал проект при помощи команды
 
-This project is a starting point for a Flutter application.
+```sh
+flutter create
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Операции над проектом
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Поменял текст в коде приложения на ФИО
+- Запустил при помощи команды
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+flutter run
+```
+
+## Скриншоты работы
