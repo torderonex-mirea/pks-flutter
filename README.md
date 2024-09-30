@@ -1,8 +1,10 @@
-# 3 Практика ПКС
+# 4 Практика ПКС
 
 ## Суханов Егор Александрович ЭФБО-01-22
 
-Свертал страницу всех товаров
-![Страница всех товаров](https://github.com/torderonex-mirea/pks-flutter/blob/pr3/screens/all.png)
-При нажатии на карточку товара пользователь попадает на страницу этого товара
-![Страница товара](https://github.com/torderonex-mirea/pks-flutter/blob/pr3/screens/one.png)
+Добавил кнопку добавления товаров
+![Кнопка добавления](https://github.com/torderonex-mirea/pks-flutter/blob/pr4/screens/4.1.png)
+При нажатии на кнопку пользователь попадает на страницу добавления товара
+![Страница добавления](https://github.com/torderonex-mirea/pks-flutter/blob/pr4/screens/4.2.png)
+Добавленный товар
+![Новый товар](https://github.com/torderonex-mirea/pks-flutter/blob/pr4/screens/4.3.png)

@@ -1,5 +1,5 @@
 class Product {
-  final int id;
+  int? id;
   final String description;
   final int quantity;
   final String category;
@@ -8,5 +8,4 @@ class Product {
   final int price;
 
   Product(this.id, this.description, this.quantity, this.category, this.title,this.price,this.imageUrl);
-
 }
