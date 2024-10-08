@@ -25,13 +25,13 @@ class _AddProductPageState extends State<AddProductPage> {
       _formKey.currentState!.save();
 
       final newProduct = Product(
-        0,
-        _description!,
-        _quantity!,
-        _category!,
-        _title!,
-        _price!,
-        _imageUrl!,
+        id: 0,  // You can manage IDs based on your own logic
+        description: _description!,
+        quantity: _quantity!,
+        category: _category!,
+        title: _title!,
+        price: _price!,
+        imageUrl: _imageUrl!,
       );
 
       widget.onItemAdded(newProduct);

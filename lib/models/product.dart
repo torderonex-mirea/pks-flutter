@@ -1,11 +1,21 @@
 class Product {
-  int? id;
-  final String description;
-  final int quantity;
-  final String category;
-  final String title;
-  final String imageUrl;
-  final int price;
+  int id;
+  String description;
+  int quantity;
+  String category;
+  String title;
+  int price;
+  String imageUrl;
+  bool isFavorite;
 
-  Product(this.id, this.description, this.quantity, this.category, this.title,this.price,this.imageUrl);
+  Product({
+    required this.id,
+    required this.description,
+    required this.quantity,
+    required this.category,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
+    this.isFavorite = false,
+  });
 }
