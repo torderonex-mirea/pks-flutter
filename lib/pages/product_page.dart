@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/models/product.dart';
+import 'package:myapp/pages/main_page.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   final Product product;
+  final Function() onProductRemove;
 
-  const ProductPage({super.key, required this.product});
+  const ProductPage({super.key, required this.product, required this.onProductRemove});
 
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.title),
+        title: Text(widget.product.title),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -18,7 +25,7 @@ class ProductPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              product.imageUrl,
+              widget.product.imageUrl,
               height: 350,
               width: double.infinity,
             ),
@@ -28,7 +35,7 @@ class ProductPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.title,
+                    widget.product.title,
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -36,7 +43,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Категория: ${product.category}',
+                    'Категория: ${widget.product.category}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
@@ -44,7 +51,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    product.description,
+                    widget.product.description,
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.black87,
@@ -52,7 +59,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '\$${product.price}',
+                    '\$${widget.product.price}',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -61,7 +68,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'На складе: ${product.quantity}',
+                    'На складе: ${widget.product.quantity}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -72,13 +79,69 @@ class ProductPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          widget.product.isInCart = !widget.product.isInCart;
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Colors.grey[200]
+                      ),
+                      child: Text(
+                        widget.product.isInCart
+                            ? 'В корзине'
+                            : 'Добавить в корзину',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.product.isFavorite = !widget.product.isFavorite;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: widget.product.isFavorite
+                            ? Colors.yellowAccent
+                            : Colors.grey[200],
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      child: Text(
+                        widget.product.isFavorite
+                            ? 'В избранном'
+                            : 'Добавить в избранное',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: (){
+                        widget.onProductRemove();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomePage()),
+                              (Route<dynamic> route) => false,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: const Text(
-                        'Добавить в корзину',
-                        style: TextStyle(fontSize: 18),
+                        'Удалить продукт',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

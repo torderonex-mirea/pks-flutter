@@ -4,8 +4,9 @@ import 'package:myapp/models/product.dart';
 
 class FavoritePage extends StatelessWidget {
   final List<Product> products;
+  final Function(Product) onProductRemove;
 
-  const FavoritePage({super.key, required this.products});
+  const FavoritePage({super.key, required this.products, required this.onProductRemove});
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +17,19 @@ class FavoritePage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // 2 columns
-          childAspectRatio: 0.6, // Adjust the aspect ratio for the cards
-          crossAxisSpacing: 8, // Space between columns
-          mainAxisSpacing: 8, // Space between rows
+          crossAxisCount: 2,
+          childAspectRatio: 0.6,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
         ),
         padding: const EdgeInsets.all(8.0),
         itemCount: products.length,
         itemBuilder: (BuildContext context, int index) {
           return ProductCard(
             product: products[index],
-            // onFavoriteToggle: () {
-            //   setState(() {
-            //     products[index].isFavorite = !products[index].isFavorite;
-            //   });
-            // },
+            onProductRemove: () {
+              onProductRemove(products[index]);
+            },
           );
         },
       ),

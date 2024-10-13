@@ -25,7 +25,7 @@ class _AddProductPageState extends State<AddProductPage> {
       _formKey.currentState!.save();
 
       final newProduct = Product(
-        id: 0,  // You can manage IDs based on your own logic
+        id: 0,
         description: _description!,
         quantity: _quantity!,
         category: _category!,

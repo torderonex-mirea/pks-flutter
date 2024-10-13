@@ -1,8 +1,8 @@
 class User {
-  final String avatarUrl;
-  final String email;
-  final String fullName;
-  final String phoneNumber;
+   String avatarUrl;
+   String email;
+   String fullName;
+   String phoneNumber;
 
   User({
     required this.avatarUrl,

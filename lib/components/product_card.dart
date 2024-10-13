@@ -4,8 +4,9 @@ import '../models/product.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
+  final Function() onProductRemove;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, required this.onProductRemove});
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -28,7 +29,8 @@ class _ProductCardState extends State<ProductCard> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductPage(product: widget.product),
+              builder: (context) => ProductPage(product: widget.product,
+                  onProductRemove:  widget.onProductRemove),
             ),
           );
         },

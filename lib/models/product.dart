@@ -7,6 +7,7 @@ class Product {
   int price;
   String imageUrl;
   bool isFavorite;
+  bool isInCart;
 
   Product({
     required this.id,
@@ -17,5 +18,6 @@ class Product {
     required this.price,
     required this.imageUrl,
     this.isFavorite = false,
+    this.isInCart = false,
   });
 }
