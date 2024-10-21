@@ -1,23 +1,9 @@
 class Product {
-  int id;
-  String description;
-  int quantity;
-  String category;
-  String title;
-  int price;
-  String imageUrl;
-  bool isFavorite;
+  final int id;
+  final String title;
+  final String time;
+  final int price;
   bool isInCart;
 
-  Product({
-    required this.id,
-    required this.description,
-    required this.quantity,
-    required this.category,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    this.isFavorite = false,
-    this.isInCart = false,
-  });
+  Product(this.id, this.title, this.time, this.price, {this.isInCart = false});
 }

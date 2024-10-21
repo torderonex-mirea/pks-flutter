@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartItem extends StatefulWidget {
   final Product product;
@@ -47,80 +46,65 @@ class _CartItemState extends State<CartItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: Key(widget.product.id.toString()),
-      direction: Axis.horizontal,
-      endActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        extentRatio: 0.5,
-        children: [
-          SlidableAction(
-            onPressed: (context) {
-              widget.onRemove();
-            },
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
-            label: 'Удалить',
-          ),
-        ],
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
       ),
-      child: Card(
-        elevation: 4,
-        margin: const EdgeInsets.all(8),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.network(
-                widget.product.imageUrl,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(width: 16),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.product.title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '\$${widget.product.price}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  widget.product.title,
+                  style: const TextStyle(fontSize: 16,),
+                ),
+              ),
+              IconButton(
+                onPressed: widget.onRemove,
+                icon: const Icon(Icons.close, color: Colors.grey),
+              ),
+            ],
+          ),
+          SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${widget.product.price * _quantity} ₽',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
                 ),
               ),
               Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: _decreaseQuantity,
-                  ),
                   Text(
-                    '$_quantity',
-                    style: const TextStyle(fontSize: 16),
+                    '${_quantity} пациент',
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    onPressed: _decreaseQuantity,
+                    icon: const Icon(Icons.remove),
+                    color: Colors.grey,
+                    iconSize: 20,
                   ),
                   IconButton(
-                    icon: const Icon(Icons.add),
                     onPressed: _increaseQuantity,
+                    icon: const Icon(Icons.add),
+                    color: Colors.grey,
+                    iconSize: 20,
                   ),
                 ],
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

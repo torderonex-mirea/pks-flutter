@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
-import 'edit_profile_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfilePage extends StatefulWidget {
   final User user;
@@ -32,84 +32,135 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Профиль'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () async {
-              final updatedUser = await Navigator.push<User>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditProfilePage(user: _user),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 27.0, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 48),
+              Text(
+                _user.fullName,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
                 ),
-              );
+              ),
+              const SizedBox(height: 10),
+              Text(
+                _user.phoneNumber,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                _user.email,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 40),
+              _buildMenuItem(
+                iconPath: 'assets/icons/orders.png',
+                text: 'Мои заказы',
+              ),
+              _buildMenuItem(
+                iconPath: 'assets/icons/cards.png',
+                text: 'Медицинские карты',
+              ),
+              _buildMenuItem(
+                iconPath: 'assets/icons/home.png',
+                text: 'Мои адреса',
+              ),
+              _buildMenuItem(
+                iconPath: 'assets/icons/settings.png',
+                text: 'Настройки',
+              ),
+              const SizedBox(height: 60),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    // Add navigation
+                  },
+                  child: const Text(
+                    'Ответы на вопросы',
+                    style: TextStyle(color: Colors.grey,
+                        fontSize: 15,
+                          fontWeight: FontWeight.w100),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    // Add navigation
+                  },
+                  child: const Text(
+                    'Политика конфиденциальности',
+                    style: TextStyle(color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    // Add navigation
+                  },
+                  child: const Text(
+                    'Пользовательское соглашение',
+                    style: TextStyle(color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    // Add logout logic
+                  },
+                  child: const Text(
+                    'Выход',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.red,
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-              if (updatedUser != null) {
-                _updateUser(updatedUser);
-              }
-            },
+  Widget _buildMenuItem({required String iconPath, required String text}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Row(
+        children: [
+          Image.asset(
+            iconPath,
+            width: 32,
+            height: 32,
+          ),
+          const SizedBox(width: 16),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 16),
           ),
         ],
-      ),
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 60,
-              backgroundImage: NetworkImage(_user.avatarUrl),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              _user.fullName,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              _user.email,
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              _user.phoneNumber,
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () async {
-                  final updatedUser = await Navigator.push<User>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditProfilePage(user: _user),
-                    ),
-                  );
-
-                  if (updatedUser != null) {
-                    _updateUser(updatedUser);
-                  }
-                },
-                child: const Text(
-                  'Редактировать профиль',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

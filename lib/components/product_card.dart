@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/pages/product_page.dart';
 import '../models/product.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
-  final Function() onProductRemove;
+  final Function(Product) onAddToCart;
 
-  const ProductCard({super.key, required this.product, required this.onProductRemove});
+  const ProductCard({required this.product, required this.onAddToCart});
+
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -15,89 +15,67 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   void toggleFavorite() {
     setState(() {
-      widget.product.isFavorite = !widget.product.isFavorite;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.all(8),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductPage(product: widget.product,
-                  onProductRemove:  widget.onProductRemove),
-            ),
-          );
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Image.network(
-                widget.product.imageUrl,
-                width: double.infinity,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+    return Container(
+      height: 136,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.product.title,
+            style: const TextStyle(fontSize: 16),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.product.title,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          widget.product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: widget.product.isFavorite ? Colors.red : Colors.grey,
-                        ),
-                        onPressed: toggleFavorite,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
                   Text(
-                    widget.product.category,
+                    widget.product.time,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),
-                  const SizedBox(height: 4),
                   Text(
-                    '\$${widget.product.price}',
+                    '${widget.product.price} ₽',
                     style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 4),
                 ],
               ),
-            ),
-          ],
-        ),
+              ElevatedButton(
+                onPressed: () {
+                  widget.onAddToCart(widget.product);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(26, 111, 238, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                ),
+                child: const Text(
+                  'Добавить',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

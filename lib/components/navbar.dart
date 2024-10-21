@@ -12,30 +12,36 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_bag),
-          label: 'Товары',
+    return SizedBox(
+      height: 88,
+      child: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        iconSize: 32,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 12,
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Избранное',
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 12,
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: 'Корзина',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Профиль',
-        ),
-      ],
-      currentIndex: currentIndex,
-      onTap: onTap,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Главная',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart_outlined),
+            label: 'Корзина',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outlined),
+            label: 'Профиль',
+          ),
+        ],
+        currentIndex: currentIndex,
+        onTap: onTap,
+      ),
     );
   }
 }
