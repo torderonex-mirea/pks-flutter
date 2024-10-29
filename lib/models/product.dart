@@ -20,4 +20,16 @@ class Product {
     this.isFavorite = false,
     this.isInCart = false,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['ID'],
+      title: json['Name'],
+      description: json['Description'],
+      price: json['Price'].toDouble(),
+      imageUrl: json['ImageURL'],
+      quantity: 145,
+      category: 'Ноутбуки',
+    );
+  }
 }

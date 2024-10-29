@@ -7,7 +7,7 @@ import 'package:myapp/pages/profile_page.dart';
 import 'package:myapp/pages/favorite_page.dart';
 
 import '../components/navbar.dart';
-import '../mocks/products.dart';
+import '../http/api.dart';
 import '../models/user.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,17 +19,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final User user = User(
-    avatarUrl: 'https://steamuserimages-a.akamaihd.net/ugc/2502382832085360498/508573C25AB27D1D611A2BEC4341E667AB2E1E2F/',
+    avatarUrl: 'https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_66689107bdac467014431b33_6668913eac50e73eec9e81ab/scale_1200',
     email: 'egor@sukhanov.com',
     fullName: 'Суханов Егор Александрович',
     phoneNumber: '8 (800)-555-35-35',
   );
+  late Future<List<Product>> _productsFuture;
+  List<Product> products = [];
 
+  @override
+  void initState() {
+    super.initState();
+    print(123);
+    _productsFuture = ApiService().getProducts();
+    _productsFuture.then((products) {
+      setState(() {
+        products = products;
+      });
+    });
+  }
   void _removeProduct(Product product) {
     setState(() {
       products.remove(product);
     });
   }
+
 
   int _currentIndex = 0;
 
@@ -86,7 +100,7 @@ class _HomePageState extends State<HomePage> {
             },
             // onFavoriteToggle: () {
             //   setState(() {
-            //     products[index].isFavorite = !products[index].isFavorite;
+            //     _products[index].isFavorite = !_products[index].isFavorite;
             //   });
             // },
           );
