@@ -27,15 +27,21 @@ class Navbar extends StatelessWidget {
         ),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon: ImageIcon(
+              AssetImage("assets/icons/navhome.png"),
+            ),
             label: 'Главная',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
+            icon: ImageIcon(
+              AssetImage("assets/icons/Cart.png"),
+            ),
             label: 'Корзина',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outlined),
+            icon: ImageIcon(
+              AssetImage("assets/icons/user.png"),
+            ),
             label: 'Профиль',
           ),
         ],
