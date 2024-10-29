@@ -19,6 +19,12 @@ class _ProductCardState extends State<ProductCard> {
     });
   }
 
+  void toggleCart(){
+    setState(() {
+      widget.product.isInCart = !widget.product.isInCart;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -66,13 +72,7 @@ class _ProductCardState extends State<ProductCard> {
                           maxLines: 1,
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          widget.product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: widget.product.isFavorite ? Colors.red : Colors.grey,
-                        ),
-                        onPressed: toggleFavorite,
-                      ),
+
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -84,15 +84,33 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    '\$${widget.product.price}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        '\$${widget.product.price}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          widget.product.isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: widget.product.isFavorite ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: toggleFavorite,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          widget.product.isInCart ? Icons.shopping_cart : Icons.shopping_cart_outlined,
+                        ),
+                        onPressed: toggleCart,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 4),
+
                 ],
               ),
             ),
