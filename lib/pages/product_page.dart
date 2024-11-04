@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/http/api.dart';
 import 'package:myapp/models/product.dart';
 import 'package:myapp/pages/main_page.dart';
 
@@ -125,7 +126,14 @@ class _ProductPageState extends State<ProductPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: (){
-                        widget.onProductRemove();
+                        try{
+                          ApiService().deleteProduct(widget.product.id);
+                          widget.onProductRemove();
+                        }catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Ошибка при добавлении продукта: $e')),
+                          );
+                        }
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => const HomePage()),

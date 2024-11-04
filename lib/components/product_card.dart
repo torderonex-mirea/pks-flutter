@@ -107,6 +107,7 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         onPressed: toggleCart,
                       ),
+                      const SizedBox(height: 4),
                     ],
                   ),
                   const SizedBox(height: 4),

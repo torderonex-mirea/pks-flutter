@@ -26,10 +26,21 @@ class Product {
       id: json['ID'],
       title: json['Name'],
       description: json['Description'],
-      price: json['Price'].toDouble(),
+      price: json['Price'].toInt(),
       imageUrl: json['ImageURL'],
       quantity: 145,
       category: 'Ноутбуки',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'ID': id,
+      'Name': title,
+      'Description': description,
+      'Price': price,
+      'ImageURL': imageUrl,
+    };
+  }
+
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/http/api.dart';
 import 'package:myapp/models/product.dart';
 
 class AddProductPage extends StatefulWidget {
@@ -20,22 +21,30 @@ class _AddProductPageState extends State<AddProductPage> {
   int? _price;
   String? _imageUrl;
 
-  void _saveForm() {
+   void _saveForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       final newProduct = Product(
         id: 0,
         description: _description!,
-        quantity: _quantity!,
-        category: _category!,
+        quantity: 12,
+        category: 'Ноутбуки',
         title: _title!,
         price: _price!,
         imageUrl: _imageUrl!,
       );
 
-      widget.onItemAdded(newProduct);
-      Navigator.pop(context);
+      try {
+        await ApiService().createProduct(newProduct);
+        widget.onItemAdded(newProduct);
+        Navigator.pop(context);
+      } catch (e) {
+        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Ошибка при добавлении продукта: $e')),
+        );
+      }
     }
   }
 
@@ -59,31 +68,6 @@ class _AddProductPageState extends State<AddProductPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Введите описание';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Количество'),
-                keyboardType: TextInputType.number,
-                onSaved: (value) {
-                  _quantity = int.tryParse(value!);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Введите количество';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Категория'),
-                onSaved: (value) {
-                  _category = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Введите категорию';
                   }
                   return null;
                 },

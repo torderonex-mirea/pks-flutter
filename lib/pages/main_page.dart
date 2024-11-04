@@ -32,9 +32,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     print(123);
     _productsFuture = ApiService().getProducts();
-    _productsFuture.then((products) {
+    _productsFuture.then((p) {
       setState(() {
-        products = products;
+        products = p;
       });
     });
   }
