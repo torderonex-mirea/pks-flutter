@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    print(123);
     _productsFuture = ApiService().getProducts();
     _productsFuture.then((p) {
       setState(() {
